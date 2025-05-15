@@ -1,0 +1,11 @@
+[
+    {
+        "id": "BOLOG 1",
+        "content": "This is a sample blog post with keyword1 and keyword2.",
+        "title": "Blog 1",
+        "keywords": [
+            { "keyword": "keyword1", "details": "Details for keyword1", "context": "blog1" },
+            { "keyword": "keyword2", "details": "Details for keyword2", "context": "blog1" }
+        ]
+    }
+]

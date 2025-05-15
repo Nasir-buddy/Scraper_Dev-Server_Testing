@@ -1,0 +1,112 @@
+[
+  {
+    "id": "AL002",
+    "title": "CTR (outbound) Below Average, while video stop rate is average or above.",
+    "description": "This means the video ad is doing an acceptable job at stopping Meta users from scrolling and getting them to watch the ad, but the number of people who click on the call-to-action link provided after viewing the ad is lower than expected (CTR outbound Below Average).\n\nPotential causes:\n* Video content might not be compelling. Meaning ad viewers don’t stay watching long enough to be compelled to click on the call-to-action button. They won’t move on to the next step because they are cold to begin with and by not watching the video there is no change they will care enough about what comes next after the ad.\n* Call-to-action text may not be clear enough. It means they are watching enough of the video but they are not sure if they want to click the call-to-action button.\n",
+    "isExpanded": false,
+    "followUpQuestions": [
+      {
+        "id": "FU001",
+        "question": "Why does CTR matter?",
+        "answer": "CTR (**outbound**) is one of the earlier indicators of success in an Ads campaign, having less people click on your call-to-action link means there will be less potential visitors to convert, causing downstream problems.",
+        "isExpanded": false
+      },
+      {
+        "id": "FU002",
+        "question": "I think the video on the ad is compelling, why can't we just keep it?",
+        "answer": "This appears to have reached [xxxx] people already in the last [xxxx] days, so we can safely say it's not an ad worth keep putting money on.",
+        "isExpanded": false
+      },
+      {
+        "id": "FU003",
+        "question": "What part of the video should I change then, if the first part is working fine?",
+        "answer": "Check out the proposed optimizations listed for you",
+        "isExpanded": false
+      }
+    ],
+    "optimizations": [
+      {
+        "id": "OPT001",
+        "description": "Replace the video with a new 2 or 3 video variations following this  [Video ad content framework] but keep the begining ('hook') part. Here's an [Example 1] of what a video for cold campaigns is supposed to look like. Once the videos are ready, go to the ad campaign and create a new ad with the videos, keep using the same text to accompany the ad. Only the videos need to be replaced"
+      },
+      {
+        "id": "OPT002",
+        "description": "Ad a 2-3 variations to the ad headline. \\nFollow this framework to come up with 2-3 variations of the FB ad.\\nOnce you have the headline variations add them all as headlines for the ad. FB will cycle through them to find out the most effective one.\\n"
+      }
+    ],
+    "followUpOptimizations": [
+      {
+        "id": "OPT001",
+        "question": "I'm busy these days...How long do I have to come up with these new video ad versions?",
+        "answer": "That is completely up to you and your team 👍 \\nFaster teams can come up with several ad variations in less than a week, but others take longer.  \\n\\nIf you find yourself in a situation where coming up with ad variations might take longer to produce, we recommend immediately lowering the budget for this FB campaign and not bring it back until the new video ads are up and ready to roll out.\\n",
+        "isExpanded": false
+      },
+      {
+        "id": "OPT002",
+        "question": "How long should I be running this for?",
+        "answer": "Once you hit 'Track Optimization' we'll follow up on you to implement this change and track its performance, then we'll let you know how it went.",
+        "isExpanded": false
+      }
+    ],
+    "keywords": [
+      {
+        "doc_id": "67d0093a4c3d3ea80abaf85b",
+        "level": 1,
+        "matching_text": "[Video ad content framework] but keep the begining ('hook') part"
+      },
+      {
+        "doc_id": "67d00acd4c3d3ea80abaf870",
+        "level": 4,
+        "matching_text": "[Example 1]"
+      },
+      {
+        "doc_id": "67d00c244c3d3ea80abaf88e",
+        "level": 2,
+        "matching_text": "this framework"
+      },
+      {
+        "doc_id": "67d1588282f2596be6513635",
+        "level": 2,
+        "matching_text": "They won't move on to the next"
+      },
+      {
+        "doc_id": "67d1afbc4ce1298b1f95d7c9",
+        "level": 2,
+        "matching_text": "call-to-action button"
+      }
+    ]
+  },
+  {
+    "id": "AL003",
+    "title": "This is the new alert",
+    "description": "**Hey** this is third alert content",
+    "isExpanded": false,
+    "followUpQuestions": [
+      {
+        "id": "FU001",
+        "question": "This is third followup question",
+        "answer": "This is follow up question content\n1. dfaf\n2. daf\n3. asf\n4. saf\n5. sd\n6. f",
+        "isExpanded": false
+      }
+    ],
+    "optimizations": [
+      {
+        "id": "OPT001",
+        "description": "I think this is first optimization"
+      }
+    ],
+    "followUpOptimizations": [],
+    "keywords": [
+      {
+        "doc_id": "67d1afef4ce1298b1f95d7cd",
+        "level": 3,
+        "matching_text": "content"
+      },
+      {
+        "doc_id": "67d1af634ce1298b1f95d7c6",
+        "level": 1,
+        "matching_text": "optimization"
+      }
+    ]
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "keyword": "Event Tracking and Forwarding - Set Up Tracking (Preparation before running Ad campaigns)",
+    "detail": "We need to start collecting certain events like visitors, leads and customers.There are several ways to send data back to Meta, it depends on if you have a simple or complex funnel.\n\n\nA few companies were lucky enough to be able to grow their client acquisition with a very simple marketing campaign or funnel. However that is not the case for most companies, where every opportunity for profit has to be maximized.\n\n\n1.   Tracking on a Simple funnel (Example: 1 Opt in, 1 checkout page and 1 confirmation page. Simple Ecommerce funnel - Product page, checkout page, confirmation page ). If you have a simple funnel, use Google Tag Manager to install Meta pixels and Conversions API on your pages and send conversion events (page view, leads, purchases, etc.)\n\n2.   Tracking in more Complex funnels (Example: 1 Opt in, 1 checkout page, 2 upsell pages, 1 confirmation page). \nFor most businesses, the way of maximizing results is by exploiting every potential opportunity to increase the Average Order Value (AOV) and Lifetime value (LTV). That means that funnels and campaigns tend to get more complex over time. It is fundamental that we send the correct signal to the ads platform. \nIn more complex funnels, we might miss sending some of the purchases to Meta pixel using Google Tag manager. So, instead we can use a webhook available in the payment gateway where a purchase happens, and an automation tool like Zapier or Make to send data back to Meta pixel using Conversions API.\nFor example, you are using Stripe as a payment tool and Make as an automation tool. Follow below steps to send data back to Facebook pixel.\n\n      a. Create a new scenario in Make.\n\n      b. Set up Stripe “**Watch Events**” as a Trigger (by doing this whenever a purchase happens in Stripe this scenario will be triggered by Stripe with purchase \n           information. Stripe Purchase information includes customer email, customer name, customer  address, product name, product price etc. )\n\n      c.  Now add **Facebook conversion API with Send Events** as a next step. and fill out Pixel Id and data (Stripe purchase information) to be sent back to Facebook Pixel.\n\n",
+    "context": "1"
+  },
+  {
+    "keyword": "Event Testing - Set Up Tracking (Preparation before running Ad campaigns)",
+    "detail": "Once you have tracking set up, make sure to test to make sure they are working correctly before starting your ads campaign. Here’s how to test that events are received correctly using Meta Events Manager.\n\nIn case you sign up clients with methods that are not online (for example collecting payments at a physical event), you can upload your offline conversions to Meta in order to take the benefits such as measure the offline return on your ad spend..etc.  Find the best method to upload events.  Here are some Partner tools to integrate.  We recommend using Zapier.\n",
+    "context": "1"
+  },
+  {
+    "keyword": "Set up a ‘Broad’ audience - Set Up Your Audiences (Preparation before running Ad campaigns)",
+    "detail": "This is an audience targeting where we do not set up specific filters in Meta. Instead we let the ad creatives attract the buyers. Meta will use the data gathered to optimize the ad campaign and find more people with similar interests. \n\nIntuitively you would think by creating lots of filters in Meta you would get better results. But what Meta needs is a big pool of people. They can target specific groups from that pool and let the machine learning algorithm do the targeting.",
+    "context": "1"
+  },
+  {
+    "keyword": "Set up an ‘Engagement’ audience - Set Up Your Audiences (Preparation before running Ad campaigns)",
+    "detail": "This is a group of people who have done any engagement with your content on Meta, i.e. clicked “read more” on your ad, clicked “like”, watched your video.\n\nRunning ads on Meta are good for reaching new people who have never heard of you or your business. So you want to get these people to know, like and trust you by creating nurturing content ads. \n\nThese people are warmer and you can target them later on with your self liquidating offer (SLO) funnels.\n\nHere’s how to set up an audience of your engagers on Facebook and engagers on Instagram, video viewers and Website visitors.\n\nFor each audience, create 3 versions with different “Audience retention” - 30 days, 60 days and 90 days. Name these audiences:\n\n1. Facebook Engagement 30 Days\n2. Instagram Engagement 30 Days\n3. Video Viewers 30 Days\n4. Website Visitors 30 Days\n5. Facebook Engagement 60 Days\n6. Instagram Engagement 60 Days\n7. Video Viewers 60 Days\t\n8. Website Visitors 60 Days\n9. Facebook Engagement 90 Days\n10. Instagram Engagement 90 Days\n11. Video Viewers 90 Days\n12. Website Visitors 90 Days\n\n",
+    "context": "1"
+  },
+  {
+    "keyword": "Dimensions (How to come up with effective Ad Creatives (Videos and Images))",
+    "detail": "For every video and image ads, create 4 different dimensions so that Meta can place your ads in as many placements and give you more exposure.\n \n\nWhen you are shooting your video, make sure it is wide enough so that it can be cropped into the dimensions below.\n\n\n* 1. 1920 x 1080\n* 2. 1080 x 1080\n* 3. 1080 x 1920\n* 4. 1080 x 1350\n",
+    "context": "1"
+  },
+  {
+    "keyword": "Hook - Video Ads Content Framework",
+    "detail": "**Hook** is the most important part of your video because it's how you're going to grab the viewer's attention. \n\n\nIn fact, when people ask me why their content isn't performing, the first thing I always look at is their hook. When people are consuming social media, they're usually just scrolling endlessly on their phones. \n\n\nYour hook has to get them to stop scrolling and pay attention to what you're about to say. If you skip the hook and just start telling the story, people will just scroll to the next video in their feed. So in the first 3 seconds of the video, you need to be intentional about what you say to ensure they keep watching.\n",
+    "context": "1"
+  },
+  {
+    "keyword": "The Context - Video Ads Content Framework",
+    "detail": "This is where you give your viewer the context or the story behind what you're about to tell them. This is crucial because it shows them why they should keep listening. Stories give us context and meaning, which captivates our attention. Once our brains get into a story, we have to finish it. So while the hook grabs the audience's attention, this part makes sure you keep it. Make it one or two quick sentences. We're talking 60 to 90 seconds for the whole video, so you don't have time to tell your whole life story.\n\n\nContext Examples\n\n1. So a few weeks ago… [tell a story of how you learned this principle]\n\n2. Too many people do _________ when they should do ___________ [give the context of what they should do instead]\n\n3. In the book ____________ by ___________, it says… [share a quote from the a book]\n\n4. A study by _____________ showed… [give a statistic or research result]\n\n5. People always ask me… [answer a question that you get asked a lot]\n\n6. So I know this might sound crazy, but… [tackle a false belief you know they’ll have about your content]\n",
+    "context": "1"
+  }
+]

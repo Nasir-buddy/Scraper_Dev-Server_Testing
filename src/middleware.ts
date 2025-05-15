@@ -1,0 +1,24 @@
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+
+const isPublicRoute = createRouteMatcher(['/signin(.*)','/signup(.*)', '/'])
+
+export default clerkMiddleware((auth, request) => {
+  if (!isPublicRoute(request)) {
+    const user = auth();
+    if (!user) {
+      // Redirect to custom sign-in URL if not authenticated
+      const redirectUrl = encodeURIComponent(request.url); // Encode the current URL
+      return new Response(null, { status: 302, headers: { Location: `/signin?redirect_url=${redirectUrl}` } });
+    }
+    auth().protect();
+  }
+})
+
+export const config = {
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
+  ],
+}

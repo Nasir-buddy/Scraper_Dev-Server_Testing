@@ -1,0 +1,54 @@
+.dotsContainer {
+  display: flex; /* Ensures horizontal alignment */
+  align-items: center;
+  justify-content: start;
+  height: 100%;
+  width: 100%;
+  margin-left: 4px;
+  margin-top: 4px;
+}
+
+.dot {
+  height: 5px; /* Smaller size */
+  width: 5px;  /* Smaller size */
+  margin-right: 5px; /* Adjusted margin for smaller dots */
+  border-radius: 50%; /* Ensures the dot is circular */
+  background-color: #808080; /* Gray color */
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.dot:last-child {
+  margin-right: 0;
+}
+
+.dot:nth-child(1) {
+  animation-delay: -0.3s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: -0.1s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+@keyframes pulse {
+  0% {
+      transform: scale(0.9);
+      background-color: #808080;
+      box-shadow: 0 0 0 0 rgba(128, 128, 128, 0.7);
+  }
+
+  50% {
+      transform: scale(1.1);
+      background-color: #696969;
+      box-shadow: 0 0 0 5px rgba(128, 128, 128, 0);
+  }
+
+  100% {
+      transform: scale(0.9);
+      background-color: #808080;
+      box-shadow: 0 0 0 0 rgba(128, 128, 128, 0.7);
+  }
+}
