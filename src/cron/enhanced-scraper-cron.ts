@@ -193,8 +193,8 @@ process.on('SIGINT', async () => {
 // Run the scraper once at startup
 runEnhancedScraper();
 
-// Schedule the scraper to run every 30 minutes
-cron.schedule('*/30 * * * *', async () => {
-  console.log('Running enhanced scraper every 30 minutes...');
+// Schedule the scraper to run every 2 hours
+cron.schedule('0 */2 * * *', async () => {
+  console.log('Running enhanced scraper every 2 hours...');
   await runEnhancedScraper();
 });

@@ -185,7 +185,7 @@ runDailyComparison();
 
 // Schedule the job to run daily at midnight
 // Uncomment this for production use
-cron.schedule('*/30 * * * *', async () => {
-  console.log('Running daily comparison...');
+cron.schedule('0 */2 * * *', async () => {
+  console.log('Running daily comparison every 2 hours...');
   await runDailyComparison();
 }); 
