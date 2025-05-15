@@ -1,4 +1,5 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import * as cheerio from 'cheerio';
 import axios from 'axios';
 import fs from 'fs';
@@ -360,11 +361,23 @@ export async function scrapeEnhancedSeoData(url: string): Promise<EnhancedScrape
   
   const startTime = Date.now();
   
-  // Initialize a browser instance
+  // Add stealth plugin to avoid detection
+  puppeteer.use(StealthPlugin());
+  
+  // Initialize a browser instance with additional options
   console.log(`📊 Launching headless browser...`);
   const browser = await puppeteer.launch({
-    headless: true, // Changed from "new" to true for TypeScript compatibility
-    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+    headless: true,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--disable-gpu',
+      '--window-size=1920,1080',
+      // Disable HTTP/2 to avoid protocol errors
+      '--disable-http2'
+    ]
   });
   
   try {
@@ -373,12 +386,49 @@ export async function scrapeEnhancedSeoData(url: string): Promise<EnhancedScrape
     await page.setViewport({ width: 1280, height: 800 });
     console.log(`📊 Browser launched and page created successfully`);
     
-    // Set a reasonable timeout
-    page.setDefaultNavigationTimeout(30000);
+    // Set a higher timeout for navigation
+    page.setDefaultNavigationTimeout(60000);
     
-    // Navigate to the URL
+    // Set custom user agent
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36');
+    
+    // Add additional headers to appear more like a regular browser
+    await page.setExtraHTTPHeaders({
+      'Accept-Language': 'en-US,en;q=0.9',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+      'Connection': 'keep-alive',
+      'Upgrade-Insecure-Requests': '1'
+    });
+    
+    // Retry mechanism for navigating to the URL
     console.log(`📊 Navigating to URL: ${url}`);
-    const response = await page.goto(url, { waitUntil: 'networkidle2' });
+    let response = null;
+    let retryCount = 0;
+    const maxRetries = 3;
+    
+    while (retryCount < maxRetries) {
+      try {
+        // Navigate with multiple wait options
+        response = await page.goto(url, { 
+          waitUntil: ['domcontentloaded', 'networkidle2'],
+          timeout: 60000 
+        });
+        
+        if (response) {
+          break;
+        }
+      } catch (err) {
+        console.warn(`⚠️ Navigation attempt ${retryCount + 1} failed:`, err);
+        retryCount++;
+        
+        if (retryCount >= maxRetries) {
+          throw new Error(`Failed to load ${url} after ${maxRetries} attempts: ${err}`);
+        }
+        
+        // Wait before retrying
+        await new Promise(resolve => setTimeout(resolve, 3000));
+      }
+    }
     
     if (!response) {
       throw new Error(`Failed to load ${url}`);
