@@ -32,7 +32,6 @@ interface ScrapedData {
   externalLinks: string[];
   imageAlts: Array<{ src: string; alt: string }>;
   pageLoadTimeMs: number;
-  screenshotPath?: string;
   screenshotBase64?: string;
   timestamp?: string;
 }
@@ -40,8 +39,8 @@ interface ScrapedData {
 export interface EnhancedScrapedData extends ScrapedData {
   statusCode: number;
   headers: Record<string, string>;
-  sitemapUrls: string[];
-  robotsTxt: string | null;
+  // sitemapUrls: string[];
+  // robotsTxt: string | null;
   wordCount: number;
   textToHtmlRatio: number;
   metaRobotsTags: {
@@ -399,26 +398,7 @@ export async function scrapeEnhancedSeoData(url: string): Promise<EnhancedScrape
     // Take a screenshot
     console.log(`📊 Taking screenshot of the page...`);
 
-    // Generate a filename for the screenshot
-    const screenshotFilename = `${new URL(url).hostname.replace(/[^a-z0-9]/gi, '-')}-${new Date().toISOString().replace(/:/g, '-')}.jpg`;
-    const screenshotDir = path.resolve(process.cwd(), 'data/screenshot');
-    if (!fs.existsSync(screenshotDir)) {
-      console.log(`📊 Creating screenshot directory at ${screenshotDir}`);
-      fs.mkdirSync(screenshotDir, { recursive: true });
-    }
-
-    const screenshotPath = `data/screenshot/${screenshotFilename}`;
-    const fullScreenshotPath = path.resolve(process.cwd(), screenshotPath);
-
-    // Save screenshot directly to a file
-    await page.screenshot({ 
-      path: fullScreenshotPath,
-      type: "jpeg", 
-      quality: 80 
-    });
-    console.log(`📊 Screenshot saved to ${fullScreenshotPath}`);
-
-    // Also get as base64 for database storage
+    // Skip saving screenshot to filesystem, capture only as base64 for database storage
     const screenshotBase64 = await page.screenshot({ 
       encoding: "base64", 
       type: "jpeg", 
@@ -505,43 +485,43 @@ export async function scrapeEnhancedSeoData(url: string): Promise<EnhancedScrape
     console.log(`📊 Page load time: ${pageLoadTimeMs}ms`);
     
     // Get robots.txt
-    console.log(`📊 Fetching robots.txt...`);
-    let robotsTxt: string | null = null;
-    try {
-      const robotsUrl = new URL('/robots.txt', url).href;
-      const robotsResponse = await axios.get(robotsUrl, { timeout: 5000 });
-      robotsTxt = robotsResponse.data;
-      console.log(`📊 Successfully fetched robots.txt (${robotsTxt?.length || 0} characters)`);
-    } catch (error) {
-      console.warn(`⚠️ Could not fetch robots.txt for ${url}:`, error);
-    }
+    // console.log(`📊 Fetching robots.txt...`);
+    // let robotsTxt: string | null = null;
+    // try {
+    //   const robotsUrl = new URL('/robots.txt', url).href;
+    //   const robotsResponse = await axios.get(robotsUrl, { timeout: 5000 });
+    //   robotsTxt = robotsResponse.data;
+    //   console.log(`📊 Successfully fetched robots.txt (${robotsTxt?.length || 0} characters)`);
+    // } catch (error) {
+    //   console.warn(`⚠️ Could not fetch robots.txt for ${url}:`, error);
+    // }
     
     // Get sitemap URLs
-    console.log(`📊 Looking for sitemap URLs...`);
-    const sitemapUrls: string[] = [];
-    if (robotsTxt) {
-      const sitemapMatches = robotsTxt.match(/^Sitemap:\s*(.+)$/gm);
-      if (sitemapMatches) {
-        sitemapMatches.forEach(match => {
-          const sitemapUrl = match.replace(/^Sitemap:\s*/, '').trim();
-          sitemapUrls.push(sitemapUrl);
-        });
-      }
-    }
+    // console.log(`📊 Looking for sitemap URLs...`);
+    // const sitemapUrls: string[] = [];
+    // if (robotsTxt) {
+    //   const sitemapMatches = robotsTxt.match(/^Sitemap:\s*(.+)$/gm);
+    //   if (sitemapMatches) {
+    //     sitemapMatches.forEach(match => {
+    //       const sitemapUrl = match.replace(/^Sitemap:\s*/, '').trim();
+    //       sitemapUrls.push(sitemapUrl);
+    //     });
+    //   }
+    // }
     
-    if (sitemapUrls.length === 0) {
-      // If no sitemap found in robots.txt, try the common locations
-      try {
-        const sitemapUrl = new URL('/sitemap.xml', url).href;
-        const sitemapResponse = await axios.head(sitemapUrl, { timeout: 5000 });
-        if (sitemapResponse.status === 200) {
-          sitemapUrls.push(sitemapUrl);
-        }
-      } catch (error) {
-        console.warn(`⚠️ Could not find sitemap.xml for ${url}:`, error);
-      }
-    }
-    console.log(`📊 Found ${sitemapUrls.length} sitemap URLs`);
+    // if (sitemapUrls.length === 0) {
+    //   // If no sitemap found in robots.txt, try the common locations
+    //   try {
+    //     const sitemapUrl = new URL('/sitemap.xml', url).href;
+    //     const sitemapResponse = await axios.head(sitemapUrl, { timeout: 5000 });
+    //     if (sitemapResponse.status === 200) {
+    //       sitemapUrls.push(sitemapUrl);
+    //     }
+    //   } catch (error) {
+    //     console.warn(`⚠️ Could not find sitemap.xml for ${url}:`, error);
+    //   }
+    // }
+    // console.log(`📊 Found ${sitemapUrls.length} sitemap URLs`);
     
     // Count words in the visible text
     console.log(`📊 Analyzing text content...`);
@@ -693,9 +673,6 @@ export async function scrapeEnhancedSeoData(url: string): Promise<EnhancedScrape
     
     // Combine all data
     console.log(`📊 Compiling all analyzed data...`);
-    const relativePath = path.relative(process.cwd(), screenshotPath).replace(/\\/g, '/');
-    console.log(`📊 Screenshot relative path: ${relativePath}`);
-    
     const result: EnhancedScrapedData = {
       url,
       title,
@@ -718,15 +695,14 @@ export async function scrapeEnhancedSeoData(url: string): Promise<EnhancedScrape
       externalLinks,
       imageAlts,
       pageLoadTimeMs,
-      // Save both absolute and relative paths for the screenshot
-      screenshotPath: relativePath,
+      // Only include base64 data, no local file path
       screenshotBase64,
       timestamp: new Date().toISOString(),
       // Enhanced data
       statusCode,
       headers: sanitizeMapKeys(headers),
-      sitemapUrls,
-      robotsTxt,
+      // sitemapUrls,
+      // robotsTxt,
       wordCount,
       textToHtmlRatio,
       metaRobotsTags,

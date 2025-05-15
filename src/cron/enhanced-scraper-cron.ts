@@ -135,8 +135,8 @@ async function runEnhancedScraper(): Promise<void> {
             imageAlts: scrapedData.imageAlts,
             pageLoadTimeMs: scrapedData.pageLoadTimeMs,
             statusCode: scrapedData.statusCode,
-            sitemapUrls: scrapedData.sitemapUrls,
-            robotsTxt: scrapedData.robotsTxt,
+            // sitemapUrls: scrapedData.sitemapUrls,
+            // robotsTxt: scrapedData.robotsTxt,
             wordCount: scrapedData.wordCount,
             textToHtmlRatio: scrapedData.textToHtmlRatio,
             metaRobotsTags: scrapedData.metaRobotsTags,
@@ -151,7 +151,7 @@ async function runEnhancedScraper(): Promise<void> {
             coreWebVitals: scrapedData.coreWebVitals,
             keywordDensity: scrapedData.keywordDensity,
             pageSpeed: scrapedData.pageSpeed,
-            screenshotPath: scrapedData.screenshotPath,
+            // screenshotPath: scrapedData.screenshotPath,
             screenshotBase64: scrapedData.screenshotBase64
           },
           { upsert: true, new: true }
